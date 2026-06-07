@@ -196,7 +196,11 @@ function checkTimezoneCrossingRest(
       }
     }
 
-    if (maxTimezoneCross >= rules.timezoneCrossingThreshold && i < periods.length - 1) {
+    if (maxTimezoneCross < rules.timezoneCrossingThreshold) {
+      continue;
+    }
+
+    if (i < periods.length - 1) {
       const nextPeriod = periods[i + 1];
       const baseRestHours = rules.minRestAfterTimezoneCrossingHours;
       const additionalRest = (maxTimezoneCross - rules.timezoneCrossingThreshold + 1) * rules.additionalRestPerTimezone;
@@ -217,6 +221,19 @@ function checkTimezoneCrossingRest(
           excess: requiredRest - actualRest,
         });
       }
+    } else {
+      violations.push({
+        crewMember,
+        dutyPeriodIndex: i,
+        flightNumber: period.duties.map(d => d.flightNumber).join(', '),
+        ruleId: 'TIMEZONE_REST_LAST_PERIOD',
+        ruleName: '跨时区飞行后休息要求（待确认）',
+        message: `跨 ${maxTimezoneCross} 个时区飞行后为最后一个值勤期，无法验证后续休息时间是否满足 ${rules.minRestAfterTimezoneCrossingHours} 小时要求，请人工确认`,
+        actualValue: 0,
+        limitValue: rules.minRestAfterTimezoneCrossingHours,
+        unit: '小时',
+        excess: 0,
+      });
     }
   }
 

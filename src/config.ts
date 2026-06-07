@@ -8,7 +8,7 @@ export const DEFAULT_RULES: RulesConfig = {
   maxFlightHours7Days: 40,
   maxFlightHours28Days: 100,
   maxConsecutiveDutyDays: 7,
-  timezoneCrossingThreshold: 3,
+  timezoneCrossingThreshold: 2,
   additionalRestPerTimezone: 1,
   minRestAfterTimezoneCrossingHours: 14,
 };

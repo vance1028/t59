@@ -44,9 +44,17 @@ export function formatDateOnly(date: Date): string {
 }
 
 export function calculateFlightHours(duty: FlightDuty): number {
-  const dep = parseDateTime(duty.departureTime);
-  const arr = parseDateTime(duty.arrivalTime);
-  return hoursBetween(dep, arr);
+  const depUtc = toUtc(duty.departureTime, duty.departureTimezone);
+  const arrUtc = toUtc(duty.arrivalTime, duty.arrivalTimezone);
+  return hoursBetween(depUtc, arrUtc);
+}
+
+function toUtc(localTimeStr: string, timezoneOffset?: number): Date {
+  const local = parseDateTime(localTimeStr);
+  if (timezoneOffset === undefined) {
+    return local;
+  }
+  return new Date(local.getTime() - timezoneOffset * MS_PER_HOUR);
 }
 
 export function calculateTimezoneCrossing(duty: FlightDuty): number {
