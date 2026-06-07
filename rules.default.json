@@ -1,0 +1,10 @@
+{
+  "maxDutyPeriodHours": 14,
+  "minRestBetweenDutiesHours": 12,
+  "maxFlightHours7Days": 40,
+  "maxFlightHours28Days": 100,
+  "maxConsecutiveDutyDays": 7,
+  "timezoneCrossingThreshold": 3,
+  "additionalRestPerTimezone": 1,
+  "minRestAfterTimezoneCrossingHours": 14
+}

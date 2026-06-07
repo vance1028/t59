@@ -1,0 +1,7 @@
+{
+  "maxDutyPeriodHours": 16,
+  "minRestBetweenDutiesHours": 10,
+  "maxFlightHours7Days": 50,
+  "maxFlightHours28Days": 120,
+  "maxConsecutiveDutyDays": 10
+}
